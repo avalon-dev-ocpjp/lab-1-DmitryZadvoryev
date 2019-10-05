@@ -1,29 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.avalon.java.ocpjp.labs.tasks.objects;
 
 import java.util.Comparator;
 
-/**
- *
- * @author Constantine
- */
 public class CitizenComparator implements Comparator<Citizen>{
 
     @Override
     public int compare(Citizen o1, Citizen o2) {
-        Country cnt1 = o1.getCountry();
-        Country cnt2 = o2.getCountry();
-        int compare = cnt1.getName().compareTo(cnt2.getName());
-        if (compare == 0) {
-            compare = o1.getName().compareTo(o2.getName());
-            if (compare == 0) {
-                return o1.getLastName().compareTo(o2.getLastName());
-            } return compare;
-        } return compare;
+        
+        int lastNameCompareResult = o1.getLastName().compareToIgnoreCase(o2.getLastName());
+        if(lastNameCompareResult != 0) {
+            return lastNameCompareResult;
+        }
+        
+        int nameCompareResult = o1.getName().compareToIgnoreCase(o2.getName());
+        if(nameCompareResult != 0){
+            return nameCompareResult;
+        }
+        
+        int codeContryCompareResult = o1.getCountry().getCode().compareToIgnoreCase(o2.getCountry().getCode()); 
+        if(codeContryCompareResult != 0){
+            return codeContryCompareResult;
+        }
+        
+        int nameCountryCompareResult = o1.getCountry().getName().compareToIgnoreCase(o2.getCountry().getName());
+        if(nameCountryCompareResult != 0){
+            return nameCountryCompareResult;
+        }
+        
+        return 0;
     }
+    
     
 }
